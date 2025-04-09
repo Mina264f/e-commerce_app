@@ -1,0 +1,64 @@
+import 'package:equatable/equatable.dart';
+
+class Product extends Equatable {
+ late final  int? id;
+ late final  String? title;
+ late final  num? price;
+ late final String? description;
+ late final  String? category;
+ late final   String? image;
+ late final   Rating? rating;
+ bool isFavorite = false;
+
+  Product({id, title, price, description, category, image, rating});
+
+  Product.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    price = json['price'];
+    description = json['description'];
+    category = json['category'];
+    image = json['image'];
+    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['id'] = id;
+    data['title'] = title;
+    data['price'] = price;
+    data['description'] = description;
+    data['category'] = category;
+    data['image'] = image;
+    if (rating != null) {
+      data['rating'] = rating!.toJson();
+    }
+    return data;
+  }
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [id];
+
+
+
+}
+
+class Rating {
+  num? rate;
+  int? count;
+
+  Rating({rate, count});
+
+  Rating.fromJson(Map<String, dynamic> json) {
+    rate = json['rate'];
+    count = json['count'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+    data['rate'] = rate;
+    data['count'] = count;
+    return data;
+  }
+}

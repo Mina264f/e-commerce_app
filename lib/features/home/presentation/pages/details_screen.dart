@@ -1,0 +1,108 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:devsolutions/features/home/presentation/manager/product_cubit.dart';
+import 'package:devsolutions/features/home/presentation/manager/product_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../generated/assets.dart';
+import '../../data/models/products_model.dart';
+
+class ProductDetails extends StatelessWidget {
+  const ProductDetails({super.key, required this.product});
+
+  final Product product;
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeCubit,HomeState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              buildSliverAppBar(),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 15.0),
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: IconButton(
+                        onPressed: () {
+                          context.read<HomeCubit>().addToFavorite(product);
+                        },
+                        icon:  Icon(product.isFavorite?Icons.favorite:Icons.favorite_border),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          '\$ ${product.price?.toString() ?? '0.0'}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(66),
+                          ),
+                          child: Text(
+                            product.category ?? '',
+                            style: const TextStyle(color: Color(0xff14AE5C)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(
+                      product.description ?? '',
+                      style: const TextStyle(color: Colors.grey),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height / 1.4),
+                ]),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  SliverAppBar buildSliverAppBar() {
+    return SliverAppBar(
+      expandedHeight: 300,
+      stretch: true,
+      flexibleSpace: FlexibleSpaceBar(
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            product.title ?? '',
+            style: const TextStyle(fontSize: 14, color: Color(0xffF4BD46)),
+          ),
+        ),
+        centerTitle: true,
+        background: Hero(
+          tag: product.id.toString(),
+          child: CachedNetworkImage(
+            height: 300,
+            width: double.infinity,
+            imageUrl: product.image ?? '',
+            placeholder: (context, url) => Image.asset(Assets.assetsLoading),
+            errorWidget:
+                (context, url, error) => Image.asset(Assets.assetsLoading),
+          ),
+        ),
+      ),
+    );
+  }
+}
