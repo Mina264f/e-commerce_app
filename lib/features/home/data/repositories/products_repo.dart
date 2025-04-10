@@ -14,10 +14,9 @@ class ProductsRepository {
     List<Product> products = [];
     try {
       final response = await apiHelper.getData(url: EndPoints.products);
-      for(var p in response.data)
-        {
-          products.add(Product.fromJson(p));
-        }
+      for (var p in response.data) {
+        products.add(Product.fromJson(p));
+      }
       return products;
     } catch (e) {
       if (e is DioException) {

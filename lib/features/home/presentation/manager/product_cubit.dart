@@ -10,19 +10,24 @@ class HomeCubit extends Cubit<HomeState> {
 
   final ProductsRepository productsRepository;
 
-  Future<void> getProducts() async {
+  Future<void> getProducts([bool product = true]) async {
     emit(state.copyWith(productState: ProductState.loading));
     try {
       var result = await productsRepository.getProducts();
-      final favProducts = CacheHelper.getList(CacheKeys.favorites);
+      final favProducts =
+          product ? CacheHelper.getList(CacheKeys.favorites) : [];
       List<String> categories = [];
       for (var i = 0; i < result.length; i++) {
         result[i].isFavorite = favProducts.contains(result[i].id.toString());
-        if(categories.contains(result[i].category!)) continue;
-             categories.add(result[i].category!);
+        if (categories.contains(result[i].category!)) continue;
+        categories.add(result[i].category!);
       }
       emit(
-        state.copyWith(productState: ProductState.success, products: result,categories: categories),
+        state.copyWith(
+          productState: ProductState.success,
+          products: result,
+          categories: categories,
+        ),
       );
     } on ApiException catch (e) {
       emit(
@@ -46,7 +51,8 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   void addToFavorite(Product product) {
-    List<Product> products =state.products?.where((p) => p.isFavorite).toList()??[];
+    List<Product> products =
+        state.products?.where((p) => p.isFavorite).toList() ?? [];
     final favProducts = CacheHelper.getList(CacheKeys.favorites);
     if (products.contains(product)) {
       favProducts.remove(product.id.toString());

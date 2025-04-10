@@ -1,4 +1,5 @@
 import 'package:devsolutions/features/home/data/models/products_model.dart';
+import 'package:equatable/equatable.dart';
 
 enum ProductState { initial, loading, success, error }
 
@@ -9,7 +10,7 @@ extension ProductStateX on HomeState {
   bool get isError => productState == ProductState.error;
 }
 
-class HomeState {
+class HomeState extends Equatable {
   ProductState? productState;
   List<Product>? products;
   String? errorMessage;
@@ -43,4 +44,14 @@ class HomeState {
       categories: categories ?? this.categories,
     );
   }
+
+  @override
+  List<Object?> get props => [
+    productState,
+    products,
+    errorMessage,
+    index,
+    favProducts,
+    categories,
+  ];
 }
