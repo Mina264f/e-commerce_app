@@ -32,8 +32,8 @@ void main() {
             HomeState(productState: ProductState.loading, index: 0),
             HomeState(
               productState: ProductState.success,
-              products: [],
-              categories: [],
+              products: const [],
+              categories: const [],
               index: 0,
             ),
           ],
