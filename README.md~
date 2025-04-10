@@ -79,8 +79,6 @@ This project uses several Flutter packages to enhance functionality:
 - `flutter_bloc`: Integrates Flutter with BLoC.
 - `bloc_test`: Provides test utilities for BLoC.
 - `get_it`: Manages dependency injection.
-- `Equtable`: Simplifies object comparison.
-
 
 ### Localization & Internationalization
 - `flutter_localizations`: Enables localization.
