@@ -34,10 +34,12 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          body:
-              state.index == 0
-                  ? HomeWidget(state: state)
-                  : _favoriteWidget(state),
+          body:RefreshIndicator(child: state.index == 0
+              ? HomeWidget(state: state)
+              : _favoriteWidget(state), onRefresh: ()=>
+            cubit.getProducts()
+          )
+
         );
       },
     );

@@ -76,7 +76,7 @@ Widget _bodyWidget(HomeState state) {
   var list = state.products ?? [];
   if (state.isLoading) {
     return const ShimmerListview();
-  } else if (state.isSuccess||list.isNotEmpty) {
+  } else if (state.isSuccess) {
     return ProductsListview(list: list);
   }
 
