@@ -23,11 +23,11 @@ class ItemList extends StatelessWidget {
         width: double.infinity,
         decoration: BoxDecoration(
           boxShadow: [
-            BoxShadow(
-              blurRadius: 3,
-              spreadRadius: 3,
-              color: Colors.black.withValues(alpha: 0.2),
-            ),
+            // BoxShadow(
+            //   blurRadius: 3,
+            //   spreadRadius: 3,
+            //   color: Colors.black.withValues(alpha: 0.2),
+            // ),
           ],
           borderRadius: BorderRadius.circular(16),
           color: const Color(0xffF7F7F7),
@@ -39,9 +39,9 @@ class ItemList extends StatelessWidget {
               child: Hero(
                 tag: product.id.toString(),
                 child: CachedNetworkImage(
-                  height: 130,
+                  height: 100,
                   width: double.infinity,
-                  fit: BoxFit.fill,
+                  //fit: BoxFit.fill,
                   imageUrl: product.image ?? '',
                   placeholder: (context, url) => Image.asset(Assets.assetsLoading),
                 ),

@@ -12,7 +12,7 @@ void main()async {
   ApiHelper.setupDio();
   setupServiceLocator();
   await CacheHelper.init();
-  runApp(DevicePreview(builder:(context) =>  const EcommerceApp(),enabled: false,));
+  runApp(DevicePreview(builder:(context) =>  const EcommerceApp(),enabled: true,));
 }
 
 class EcommerceApp extends StatelessWidget {

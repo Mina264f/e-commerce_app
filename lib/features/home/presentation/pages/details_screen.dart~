@@ -95,7 +95,7 @@ class ProductDetails extends StatelessWidget {
         background: Hero(
           tag: product.id.toString(),
           child: Padding(
-            padding: const EdgeInsets.only(top: 15.0),
+            padding: const EdgeInsets.all(8.0),
             child: CachedNetworkImage(
               height: 300,
               width: double.infinity,

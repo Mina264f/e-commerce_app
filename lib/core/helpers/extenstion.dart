@@ -41,5 +41,5 @@ extension HeightAndWidth on int
 }
 
 extension StringExtension on String? {
-  bool isNullOrEmpty() => this == null || this == "";
+  bool isNullOrEmpty() => this == null || this == '';
 }

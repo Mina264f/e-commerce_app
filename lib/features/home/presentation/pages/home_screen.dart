@@ -11,7 +11,13 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state.isError) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
+        }
+      },
       builder: (context, state) {
         var cubit = context.read<HomeCubit>();
         return Scaffold(
@@ -28,29 +34,26 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
-          body:state.index==0? HomeWidget(state: state,): _favoriteWidget(state),
+          body:
+              state.index == 0
+                  ? HomeWidget(state: state)
+                  : _favoriteWidget(state),
         );
       },
     );
   }
 
-
   _favoriteWidget(HomeState state) {
-    var list = state.favProducts ?? [];
+    var list = state.products?.where((p) => p.isFavorite).toList() ?? [];
     if (list.isEmpty) {
       return const Center(child: Text('No favorite product'));
     } else {
       return Column(
         children: [
-          const SizedBox(
-            height: 60,
-          ),
-          Expanded(child: ProductsListview(list: list)),
+          const SizedBox(height: 60),
+          ProductsListview(list: list),
         ],
       );
-  }}
-
-
-
-
+    }
+  }
 }

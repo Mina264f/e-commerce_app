@@ -18,8 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
       List<String> categories = [];
       for (var i = 0; i < result.length; i++) {
         result[i].isFavorite = favProducts.contains(result[i].id.toString());
-        if(categories.contains(result[i].category!)) continue;
-             categories.add(result[i].category!);
+    categories.add(result[i].category!);
       }
       emit(
         state.copyWith(productState: ProductState.success, products: result,categories: categories),
